@@ -15,7 +15,7 @@ on and testing for Linux.
 
 * Build a damn object association framework
 
-    * Objects will all have a transform attribute (or assumed tranform of 0)
+    * Objects will all have a transform attribute (or assumed transform of 0)
 
     * Objects can include containers, obj models, sprites, light sources, 
       C++ scripts, Python scripts, etc.
@@ -39,7 +39,7 @@ The following instructions assume starting from the project directory.
 
 ### To compile for the first time, run:
 ```bash
-cmake -B bin
+cmake -S src -B bin
 make -C bin
 ```
 
