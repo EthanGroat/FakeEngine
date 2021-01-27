@@ -5,7 +5,7 @@ hopes of making an engine in the hopes of making some fun little things out of
 it. I hope to make it cross-platform, but for the moment, I will be developing 
 on and testing for Linux.
 
-### The project roadmap:
+## The project roadmap:
 
 * Build a damn renderer
 
@@ -33,14 +33,29 @@ need some rudimentary working version of these three things to begin with, and
 then I can proceed to iterate through better and better versions of a working 
 game engine. Sort of a one-man agile methodology.
 
-### Compiling and running:
+## Compiling and running:
 
+The following instructions assume starting from the project directory.
+
+### To compile for the first time, run:
 ```bash
-# To compile, navigate to the project directory and run:
 cmake -B bin
 make -C bin
+```
 
-# To run:
+### Subsequent compilations to make the process quicker:
+```bash
 cd bin
-./FakeLaraEngine
+make
+```
+or simply
+```bash
+make -C bin
+```
+
+### To run:
+```bash
+cd bin
+# then run `make` to rebuild, if needed
+./FakeLaraEngine  # start the executable
 ```
