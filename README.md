@@ -2,7 +2,8 @@
 
 This is my 3D game engine to be. I'm fooling around with graphics APIs in the 
 hopes of making an engine in the hopes of making some fun little things out of 
-it. I hope to make it cross-platform, but for the moment, it will be for Linux.
+it. I hope to make it cross-platform, but for the moment, I will be developing 
+on and testing for Linux.
 
 ### The project roadmap:
 
@@ -31,3 +32,15 @@ Once that's all done, then the whole damn thing might work! I actually only
 need some rudimentary working version of these three things to begin with, and 
 then I can proceed to iterate through better and better versions of a working 
 game engine. Sort of a one-man agile methodology.
+
+### Compiling and running:
+
+```bash
+# To compile, navigate to the project directory and run:
+cmake -B bin
+make -C bin
+
+# To run:
+cd bin
+./FakeLaraEngine
+```
