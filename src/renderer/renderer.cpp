@@ -38,11 +38,23 @@ namespace renderer
         }
         glfwMakeContextCurrent(m_internal_window);
 
+        if (!gladLoadGL(glfwGetProcAddress))
+        {
+            std::cerr << "Failed to initialize glad" << std::endl;
+            return false;
+        }
+
         return true;
+    }
+
+    void Window::clear() const
+    {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
     void Window::update() const
     {
+        clear();
         glfwPollEvents();
         glfwSwapBuffers(m_internal_window);
     }
@@ -50,6 +62,6 @@ namespace renderer
     bool Window::is_closed() const
     {
         // return m_closed;
-        return glfwWindowShouldClose(m_internal_window);
+        return glfwWindowShouldClose(m_internal_window) == 1;
     }
 }

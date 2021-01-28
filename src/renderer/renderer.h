@@ -22,6 +22,7 @@ namespace renderer
         public:
             Window(const char* title, int width, int height);
             ~Window();
+            void clear() const;
             void update() const;
             bool is_closed() const;
         private:
