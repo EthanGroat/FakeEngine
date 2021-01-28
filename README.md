@@ -1,4 +1,4 @@
-# FakeLara Engine
+# FakeEngine
 
 This is my 3D game engine to be. I'm fooling around with graphics APIs in the 
 hopes of making an engine in the hopes of making some fun little things out of 
@@ -57,5 +57,5 @@ make -C bin
 ```bash
 cd bin
 # then run `make` to rebuild, if needed
-./FakeLaraEngine  # start the executable
+./FakeEngine  # start the executable
 ```
