@@ -5,5 +5,5 @@
 #include <GLFW/glfw3.h>
 
 
-char* test();
+const char* test();
 int render();

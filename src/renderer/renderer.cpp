@@ -1,5 +1,5 @@
-char* test() {
-    char* stringy = "Hello renderer!";
+const char* test() {
+    const char* stringy = "Hello renderer!";
     return stringy;
 }
 
