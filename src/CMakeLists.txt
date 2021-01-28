@@ -4,7 +4,10 @@ project(FakeEngine)
 set(CMAKE_CXX_STANDARD 20)
 
 add_subdirectory(renderer)
+add_subdirectory(glfw)
 
 add_executable(${PROJECT_NAME} main.cpp)
-target_include_directories(${PROJECT_NAME} PUBLIC renderer glad/include)
+target_include_directories(${PROJECT_NAME} PUBLIC renderer)
+
+target_link_libraries(${PROJECT_NAME} PUBLIC glfw)
 target_link_libraries(${PROJECT_NAME} PUBLIC renderer)

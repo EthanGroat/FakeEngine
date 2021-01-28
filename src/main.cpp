@@ -3,9 +3,16 @@
 
 
 int main() {
+    using namespace renderer;
+
     std::cout << "Hello, FakeLara!" << std::endl;
 
-    std::cout << test() << std::endl;
+    Window window("Hello, FakeLara!", 800, 600);
 
-    return render();
+    while (!window.is_closed())
+    {
+        window.update();
+    }
+
+    return 0;
 }
