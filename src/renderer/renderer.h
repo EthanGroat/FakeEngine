@@ -27,8 +27,8 @@ namespace renderer
             bool is_closed() const;
             inline int get_width() const { return m_width; };
             inline int get_height() const { return m_height; };
-            inline int set_width(int width) { m_width = width; };
-            inline int set_height(int height) { m_height = height; };
+            inline void set_width(int width) { m_width = width; };
+            inline void set_height(int height) { m_height = height; };
         private:
             bool init();
     };
