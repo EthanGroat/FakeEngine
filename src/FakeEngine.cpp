@@ -3,6 +3,7 @@
 
 
 int main() {
+    using namespace FakeEngine;
     using namespace renderer;
 
     std::cout << "Hello, FakeLara!" << std::endl;
