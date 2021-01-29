@@ -1,3 +1,11 @@
 .vscode/
 .idea/
+
 bin/
+sandbox/bin/
+
+**/CMakeFiles/
+*.cmake
+**CMakeCache.txt
+**CMakeDoxyfile.in
+**Makefile
