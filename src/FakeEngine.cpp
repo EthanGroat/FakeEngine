@@ -1,30 +1,23 @@
-#include <iostream>
-#include "renderer.h"
+#include "FakeEngine.h"
 
 
-int main() {
-    using namespace FakeEngine;
-    using namespace renderer;
-
-    std::cout << "Hello, FakeLara!" << std::endl;
-
-    Window window("Hello, FakeLara!", 800, 600);
-    glClearColor(0.f, 0.25f, 1.f, 1.f);
-    std::cout << glGetString(GL_VERSION) << std::endl;
-
-    while (!window.is_closed())
+namespace FakeEngine
+{
+    class Application
     {
-        std::cout << window.get_width() << ", "
-        << window.get_height() << std::endl;
-
-        window.clear();
-        glBegin(GL_TRIANGLES);
-        glVertex2f(-1.0f, 0.0f);
-        glVertex2f( 1.0f, 0.0f);
-        glVertex2f( 0.0f, 0.7f);
-        glEnd();
-        window.update();
+    private:
+        /* data */
+    public:
+        Application(/* args */);
+        ~Application();
+    };
+    
+    Application::Application(/* args */)
+    {
     }
-
-    return 0;
+    
+    Application::~Application()
+    {
+    }
+    
 }

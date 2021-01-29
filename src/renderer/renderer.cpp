@@ -53,6 +53,8 @@ namespace FakeEngine
             }
 
             glfwSetWindowSizeCallback(m_internal_window, resize_GLFW_window);
+            
+            glClearColor(0.f, 0.25f, 1.f, 1.f);
 
             return true;
         }

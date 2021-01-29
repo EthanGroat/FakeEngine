@@ -35,15 +35,23 @@ game engine. Sort of a one-man agile methodology.
 
 ## Compiling and running:
 
-The following instructions assume starting from the project directory.
+The engine is compiled as a shared library that in turn depends on other 
+libraries. When compiling the sandbox environment, these libraries are 
+automatically generated and stored in a subdirectory in the binaries directory, 
+so compiling the sandbox is the easiest way to get up and running.
+The preferred path for binaries is `bin` or `sandbox/bin`.
 
-### To compile for the first time, run:
+The following terminal instructions assume starting from the project directory.
+
+### Quickstart (compile the sandbox (and engine) for the first time and run it):
 ```bash
-cmake -S src -B bin
-make -C bin
+cmake -S sandbox -B bin  # or sandbox/bin
+cd bin
+make
+./Sandbox  # or just click on it from the newly generated bin folder.
 ```
 
-### Subsequent compilations to make the process quicker:
+### Subsequent compilations can usually be done with just make:
 ```bash
 cd bin
 make
@@ -53,9 +61,12 @@ or simply
 make -C bin
 ```
 
-### To run:
+### To run the sandbox from terminal (assuming it's already compiled):
 ```bash
 cd bin
-# then run `make` to rebuild, if needed
-./FakeEngine  # start the executable
+./Sandbox
 ```
+
+To instead compile only a specific component (like just the engine without the 
+sandbox), substitute the source to that component after the `-S` flag in the 
+instructions above, and ensure the binary path (`-B` option). Is to your liking.
