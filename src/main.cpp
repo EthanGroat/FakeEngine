@@ -18,9 +18,9 @@ int main() {
 
         window.clear();
         glBegin(GL_TRIANGLES);
-        glVertex2f(-1.0f, 0.f);
-        glVertex2f(1.0f, 0.f);
-        glVertex2f(0.f, 0.7f);
+        glVertex2f(-1.0f, 0.0f);
+        glVertex2f( 1.0f, 0.0f);
+        glVertex2f( 0.0f, 0.7f);
         glEnd();
         window.update();
     }

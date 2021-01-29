@@ -8,6 +8,11 @@ namespace renderer
         return stringy;
     }
 
+    void resize_GLFW_window(GLFWwindow* window, int width, int height)
+    {
+        glViewport(0, 0, width, height);
+    }
+
     Window::Window(const char* title, int width, int height)
     {
         m_title = title;
@@ -44,6 +49,8 @@ namespace renderer
             return false;
         }
 
+        glfwSetWindowSizeCallback(m_internal_window, resize_GLFW_window);
+
         return true;
     }
 
@@ -56,7 +63,6 @@ namespace renderer
     {
         glfwPollEvents();
         glfwGetFramebufferSize(m_internal_window, &m_width, &m_height);
-        glViewport(0, 0, m_width, m_height);
         glfwSwapBuffers(m_internal_window);
     }
 
