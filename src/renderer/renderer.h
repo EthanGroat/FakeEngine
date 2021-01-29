@@ -23,8 +23,10 @@ namespace renderer
             Window(const char* title, int width, int height);
             ~Window();
             void clear() const;
-            void update() const;
+            void update();
             bool is_closed() const;
+            inline int get_width() const { return m_width; };
+            inline int get_height() const { return m_height; };
         private:
             bool init();
     };

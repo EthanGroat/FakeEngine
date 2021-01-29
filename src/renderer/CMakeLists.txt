@@ -5,4 +5,5 @@ add_library(
 )
 target_include_directories(renderer PUBLIC ${PROJECT_SOURCE_DIR}/glad/include)
 
-target_link_libraries(renderer glfw glad)
+target_link_libraries(renderer glfw)
+target_link_libraries(renderer glad)
