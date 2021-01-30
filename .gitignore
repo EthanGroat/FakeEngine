@@ -8,4 +8,7 @@ sandbox/bin/
 *.cmake
 **CMakeCache.txt
 **CMakeDoxyfile.in
+**CMakeDoxygenDefaults.cmake
+**cmake_install.cmake
 **Makefile
+

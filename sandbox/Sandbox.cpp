@@ -4,17 +4,19 @@
 class SandboxApp : public FakeEngine::Application
 {
     public:
-        /* run must be overridden to run a FakeEngine Application */
+        /* run() contains the main code of your FakeEngine Application */
         void run()
         {
             std::cout << "running sandbox..." << std::endl;
 
+            FakeEngine::Logger log = FakeEngine::Logger();
+
             FakeEngine::renderer::Window window("Hello, FakeLara!", 800, 600);
 
             float vertices[3][2] = {
-                {-1.0f, 0.0f},
-                { 1.0f, 0.0f},
-                { 0.0f, 0.7f}
+                {-0.8f, 0.0f},
+                { 0.8f, 0.0f},
+                { 0.0f, 0.9f}
             };
 
             unsigned int buffers[] = {0, 0, 0, 0};

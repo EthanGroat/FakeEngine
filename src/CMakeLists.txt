@@ -6,9 +6,19 @@ set(CMAKE_CXX_STANDARD 20)
 add_subdirectory(renderer)
 add_subdirectory(glfw)
 add_subdirectory(glad)
+add_subdirectory(logger)
 
 add_library(${PROJECT_NAME} SHARED FakeEngine.cpp)
-target_include_directories(${PROJECT_NAME} PUBLIC renderer)
 
-target_link_libraries(${PROJECT_NAME} PUBLIC glfw)
-target_link_libraries(${PROJECT_NAME} PUBLIC renderer)
+target_include_directories(
+    ${PROJECT_NAME} PUBLIC
+    renderer
+    logger
+)
+
+target_link_libraries(
+    ${PROJECT_NAME} PUBLIC
+    glfw
+    renderer
+    logger
+)

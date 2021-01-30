@@ -12,10 +12,11 @@ namespace FakeEngine
     {
     }
     
-    /* run must be overridden to run a FakeEngine Application */
+    /* run() contains the main code of your FakeEngine Application
+    (must be implemented in client applications) */
     void Application::run()
     {
-        std::cout << "running engine library code..." << std::endl
+        std::cout << "running engine library default code..." << std::endl
         << "(Did you forget to implement your application's run() function?)"
         << std::endl;
     }

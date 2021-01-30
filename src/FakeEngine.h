@@ -1,14 +1,15 @@
 #include <iostream>
 #include "renderer.h"
+#include "logger.h"
 
 
 namespace FakeEngine
 {
     class Application
     {
-    private:
+      private:
         /* data */
-    public:
+      public:
         Application(/* args */);
         virtual ~Application();
         virtual void run();
