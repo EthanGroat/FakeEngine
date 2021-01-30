@@ -11,7 +11,7 @@ namespace FakeEngine
             return stringy;
         }
 
-        void resize_GLFW_window(GLFWwindow* window, int width, int height)
+        void Window::resize_GLFW_window(GLFWwindow* window, int width, int height)
         {
             glViewport(0, 0, width, height);
         }

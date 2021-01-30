@@ -31,6 +31,8 @@ namespace FakeEngine
                 inline int get_height() const { return m_height; };
                 inline void set_width(int width) { m_width = width; };
                 inline void set_height(int height) { m_height = height; };
+                static void resize_GLFW_window(GLFWwindow* window, 
+                    int width, int height);
             private:
                 bool init();
         };

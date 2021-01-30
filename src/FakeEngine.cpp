@@ -12,6 +12,7 @@ namespace FakeEngine
     {
     }
     
+    /* run must be overridden to run a FakeEngine Application */
     void Application::run()
     {
         std::cout << "running engine library code..." << std::endl
