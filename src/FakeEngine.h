@@ -10,7 +10,7 @@ namespace FakeEngine
       private:
         /* data */
       public:
-        Application(/* args */);
+        Application();
         virtual ~Application();
         virtual void run();
     };

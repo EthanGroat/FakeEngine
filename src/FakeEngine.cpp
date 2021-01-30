@@ -2,9 +2,8 @@
 
 
 namespace FakeEngine
-{    
-
-    Application::Application(/* args */)
+{
+    Application::Application()
     {
     }
     

@@ -3,21 +3,35 @@
 
 class SandboxApp : public FakeEngine::Application
 {
+    // member variables
+    private:
+        FakeEngine::Logger clientlogger;
+
+    // methods
     public:
+        SandboxApp():  // our app constructor
+          clientlogger(FAKELOGGER_CYAN)  // initialize our custom logger
+        {
+            clientlogger.print("Hi from SandboxApp constructor.\n");
+        }
+        
+        ~SandboxApp()  // our destructor
+        {
+        }
+
         /* run() contains the main code of your FakeEngine Application */
         void run()
         {
-            std::cout << "running sandbox..." << std::endl;
+            clientlogger.print(FAKELOGGER_GREEN, "running sandbox...\n");
 
-            FakeEngine::Logger log = FakeEngine::Logger();
-
-            FakeEngine::renderer::Window window("Hello, FakeLara!", 800, 600);
+            FakeEngine::renderer::Window window("Hello, FakeLara!", 960, 540);
 
             float vertices[3][2] = {
                 {-0.8f, 0.0f},
                 { 0.8f, 0.0f},
                 { 0.0f, 0.9f}
             };
+
 
             unsigned int buffers[] = {0, 0, 0, 0};
             glGenBuffers(4, buffers);
@@ -47,7 +61,7 @@ class SandboxApp : public FakeEngine::Application
 
 
 // Entry into FakeEngine
-int main()
+int main(int argc, char* argv[])
 {
     return FakeEngine::run_application(new SandboxApp());
 }
