@@ -2,16 +2,8 @@
 
 
 namespace FakeEngine
-{
-    class Application
-    {
-    private:
-        /* data */
-    public:
-        Application(/* args */);
-        ~Application();
-    };
-    
+{    
+
     Application::Application(/* args */)
     {
     }
@@ -20,4 +12,19 @@ namespace FakeEngine
     {
     }
     
+    void Application::run()
+    {
+        std::cout << "running engine library code..." << std::endl
+        << "(Did you forget to implement your application's run() function?)"
+        << std::endl;
+    }
+
+    /**** ENTRY POINT ****/
+    int run_application(Application* app)
+    {
+        app->run();
+        delete app;
+
+        return 0;
+    }
 }
