@@ -1,7 +1,8 @@
 #include <iostream>
 #include <iomanip>
-#include <vector>
-#include <string.h>
+#include <string>
+#include <sstream>
+#include "types.h"
 
 
 // List of ANSI color codes
@@ -26,15 +27,11 @@ namespace FakeEngine
         Logger(int default_color);
         Logger(int default_color, const char* initialization_message);
         ~Logger();
-        void set_default_color(int color);
-        static void set_current_output_color(int color);
+        void set_color(int color);
         void print(const char* text) const;
         void print(int color, const char* text) const;
-        template<typename T>
-        inline void print_multiple(std::vector<T> content_list) const
-        {
-            for (int i = 0; i < content_list.size(); ++i)
-                std::cout << content_list[i];
-        }
+        void print_int(int number) const;
+        void print_float(float number) const;
+        void print_array(vector_2d* content, int rows) const;
     };
 }

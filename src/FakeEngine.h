@@ -1,6 +1,7 @@
 #include <iostream>
 #include "renderer.h"
 #include "logger.h"
+#include "types.h"
 
 
 namespace FakeEngine

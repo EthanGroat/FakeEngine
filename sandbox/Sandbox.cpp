@@ -26,11 +26,14 @@ class SandboxApp : public FakeEngine::Application
 
             FakeEngine::renderer::Window window("Hello, FakeLara!", 960, 540);
 
-            float vertices[3][2] = {
+            vector_2d vert[3] = {
                 {-0.8f, 0.0f},
                 { 0.8f, 0.0f},
                 { 0.0f, 0.9f}
             };
+
+            clientlogger.set_color(FAKELOGGER_VIOLET);
+            clientlogger.print_array(vert, 3);
 
 
             unsigned int buffers[] = {0, 0, 0, 0};
@@ -38,10 +41,10 @@ class SandboxApp : public FakeEngine::Application
 
             glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
             glEnableVertexAttribArray(0);
-            glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), 0);
+            glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(vector_2d), 0);
             glBufferData(GL_ARRAY_BUFFER, 
-                6*sizeof(float), 
-                vertices, 
+                3*sizeof(vector_2d), 
+                vert, 
                 GL_STATIC_DRAW
             );
 
