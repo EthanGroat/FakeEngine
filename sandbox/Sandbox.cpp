@@ -36,6 +36,10 @@ class SandboxApp : public FakeEngine::Application
             clientlogger.printl("Triangle buffer:");
             clientlogger.print_array(vert, 3);
 
+            clientlogger.printl();
+            clientlogger.print("Event Category identifier for Application: ");
+            clientlogger.printl(EveCatApplication);
+
 
             unsigned int buffers[] = {0, 0, 0, 0};
             glGenBuffers(4, buffers);

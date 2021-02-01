@@ -1,7 +1,7 @@
-#include <iostream>
 #include "renderer.h"
 #include "logger.h"
 #include "types.h"
+#include "event.h"
 
 
 namespace FakeEngine
@@ -9,7 +9,7 @@ namespace FakeEngine
     class Application
     {
       private:
-        /* data */
+        Logger fakelogger;
       public:
         Application();
         virtual ~Application();

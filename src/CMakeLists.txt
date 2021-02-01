@@ -7,6 +7,7 @@ add_subdirectory(renderer)
 add_subdirectory(glfw)
 add_subdirectory(glad)
 add_subdirectory(logger)
+add_subdirectory(eventhandler)
 
 add_library(${PROJECT_NAME} SHARED FakeEngine.cpp)
 
@@ -14,6 +15,7 @@ target_include_directories(
     ${PROJECT_NAME} PUBLIC
     renderer
     logger
+    eventhandler
 )
 
 target_link_libraries(

@@ -28,21 +28,18 @@ namespace FakeEngine
 
     void Logger::print_array(vector_2d* content, int rows) const
     {
-        printl();
         for (int i = 0; i < rows; ++i)
             print_vector(content[i]);
         printl("           [vector_2d]");
     }
     void Logger::print_array(vector_3d* content, int rows) const
     {
-        printl();
         for (int i = 0; i < rows; ++i)
             print_vector(content[i]);
         printl("                     [vector_3d]");
     }
     void Logger::print_array(vector_4d* content, int rows) const
     {
-        printl();
         for (int i = 0; i < rows; ++i)
             print_vector(content[i]);
         printl("                               [vector_4d]");

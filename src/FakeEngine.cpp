@@ -3,10 +3,9 @@
 
 namespace FakeEngine
 {
-    Logger fakelogger = Logger(FAKELOGGER_BLUE, "Hello from engine logger.");
-
     Application::Application()
     {
+        fakelogger = Logger(FAKELOGGER_BLUE, "Hello from engine logger.");
     }
     
     Application::~Application()
@@ -17,9 +16,8 @@ namespace FakeEngine
     (must be implemented in client applications) */
     void Application::run()
     {
-        std::cout << "running engine library default code..." << std::endl
-        << "(Did you forget to implement your application's run() function?)"
-        << std::endl;
+        fakelogger.printl("running engine library default code...");
+        fakelogger.printl("(Did you forget to implement your application's run() function?)");
     }
 
     /**** ENTRY POINT ****/
