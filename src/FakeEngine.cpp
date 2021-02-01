@@ -3,6 +3,8 @@
 
 namespace FakeEngine
 {
+    Logger fakelogger = Logger(FAKELOGGER_BLUE, "Hello from engine logger.");
+
     Application::Application()
     {
     }

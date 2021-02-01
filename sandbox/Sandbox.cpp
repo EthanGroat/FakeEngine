@@ -12,7 +12,7 @@ class SandboxApp : public FakeEngine::Application
         SandboxApp():  // our app constructor
           clientlogger(FAKELOGGER_CYAN)  // initialize our custom logger
         {
-            clientlogger.print("Hi from SandboxApp constructor.\n");
+            clientlogger.printl("Hi from inside SandboxApp constructor!");
         }
         
         ~SandboxApp()  // our destructor
@@ -28,11 +28,12 @@ class SandboxApp : public FakeEngine::Application
 
             vector_2d vert[3] = {
                 {-0.8f, 0.0f},
-                { 0.8f, 0.0f},
-                { 0.0f, 0.9f}
+                { 0.8f, 0.00006723411f},
+                { 0.0f, 0.93246f}
             };
 
             clientlogger.set_color(FAKELOGGER_VIOLET);
+            clientlogger.printl("Triangle buffer:");
             clientlogger.print_array(vert, 3);
 
 
