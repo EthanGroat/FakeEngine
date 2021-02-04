@@ -248,6 +248,11 @@ namespace FakeEngine
                 return the_list->max * sizeof(StorageType);
             }
 
+            StorageType* get_internal_array()
+            {
+                return the_list;
+            }
+
             // Operators
             FakeList operator[](int index)
             {
