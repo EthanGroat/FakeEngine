@@ -1,5 +1,5 @@
 add_library(
-    logger STATIC
+    logger SHARED
     logger.h
     logger.cpp
 )

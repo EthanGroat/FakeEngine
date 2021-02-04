@@ -1,5 +1,5 @@
 add_library(
-    event STATIC
+    event SHARED
     event.h
     event.cpp
 )

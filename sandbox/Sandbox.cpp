@@ -1,5 +1,6 @@
 #include "FakeEngine.h"
 
+using namespace FakeEngine;
 
 class SandboxApp : public FakeEngine::Application
 {
@@ -37,8 +38,8 @@ class SandboxApp : public FakeEngine::Application
             clientlogger.print_array(vert, 3);
 
             clientlogger.printl();
-            clientlogger.print("Event Category identifier for Application: ");
-            clientlogger.printl(EveCatApplication);
+            clientlogger.print("Event Type identifier for KeyPressed: ");
+            clientlogger.printl((unsigned int)EveTypeKeyPressed);
 
 
             unsigned int buffers[] = {0, 0, 0, 0};

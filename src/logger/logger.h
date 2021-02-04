@@ -41,17 +41,25 @@ namespace FakeEngine
                 ANSI color code, predefined with FAKELOGGER_[COLOR] */
         inline void set_color(int color)
             { default_color = color; }
+
         inline void print(const char* text) const
             { printf("\033[%dm%s", default_color, text); }
         inline void print(int color, const char* text) const
             { printf("\033[%dm%s", color, text); }
         inline void print(int number) const
             { printf("\033[%dm%d", default_color, number); }
+        inline void print(unsigned int number) const
+            { printf("\033[%dm%08x", default_color, number); }
         inline void print(float number) const
             { printf("\033[%dm%8.2g", default_color, number); }
+
         inline void printl() const { print("\n"); }
         template<typename T>
         inline void printl(T something) const { print(something); print("\n"); }
+        template<typename T>
+        inline void printl(int color, T something) const
+            { print(color, something); print("\n"); }
+
         inline void print_vector(vector_2d vec) const
             {
                 print("( ");
@@ -82,6 +90,7 @@ namespace FakeEngine
                 print(vec.q);
                 print(" )\n");
             }
+
         void print_array(vector_2d* content, int rows) const;
         void print_array(vector_3d* content, int rows) const;
         void print_array(vector_4d* content, int rows) const;
