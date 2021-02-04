@@ -11,7 +11,7 @@ class SandboxApp : public FakeEngine::Application
     // methods
     public:
         SandboxApp():  // our app constructor
-          clientlogger(FAKELOGGER_CYAN)  // initialize our custom logger
+            clientlogger(FAKELOGGER_CYAN)  // initialize our custom logger
         {
             clientlogger.printl("Hi from inside SandboxApp constructor!");
         }
@@ -63,7 +63,7 @@ class SandboxApp : public FakeEngine::Application
             glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(vector_2d), 0);
             glBufferData(GL_ARRAY_BUFFER, 
                 3*sizeof(vector_2d), 
-                vert, 
+                f.get_internal_array(),
                 GL_STATIC_DRAW
             );
 

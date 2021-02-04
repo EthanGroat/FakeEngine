@@ -38,7 +38,7 @@ namespace FakeEngine
         ~Logger();
 
             /*! @param color
-                ANSI color code, predefined with FAKELOGGER_[COLOR] */
+                ANSI color code, set with FAKELOGGER_[COLOR] */
         inline void set_color(int color)
             { default_color = color; }
 

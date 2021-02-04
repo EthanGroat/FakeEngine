@@ -182,6 +182,8 @@ namespace FakeEngine
         private:
             fakelist* the_list;
         public:
+            // a resizable list structure of any type
+            // (type must be specified in angle brackets when created)
             FakeList()
             {
                 the_list = fakelist_new(sizeof(StorageType));
@@ -191,6 +193,7 @@ namespace FakeEngine
                 fakelist_free(the_list);
             }
 
+            // initialize the FakeList with an array
             void initialize(StorageType* initializer_array, int length)
             {
                 for (int i = 0; i < length; ++i)
@@ -218,11 +221,11 @@ namespace FakeEngine
             {
                 fakelist_append(the_list, &item);
             }
-            void enq(StorageType item)
+            void enq(StorageType item)  // enqueue
             {
                 append(item);
             }
-            StorageType deq()
+            StorageType deq()  // dequeue
             {
                 return extract(0);
             }
@@ -250,7 +253,7 @@ namespace FakeEngine
 
             StorageType* get_internal_array()
             {
-                return the_list;
+                return (StorageType*)(the_list->items);
             }
 
             // Operators

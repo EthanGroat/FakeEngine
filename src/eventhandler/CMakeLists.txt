@@ -3,3 +3,8 @@ add_library(
     event.h
     event.cpp
 )
+
+target_include_directories(
+    event PUBLIC
+    ../
+)
