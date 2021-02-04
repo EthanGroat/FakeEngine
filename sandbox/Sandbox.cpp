@@ -33,11 +33,24 @@ class SandboxApp : public FakeEngine::Application
                 { 0.0f, 0.93246f}
             };
 
-            clientlogger.set_color(FAKELOGGER_VIOLET);
-            clientlogger.printl("Triangle buffer:");
-            clientlogger.print_array(vert, 3);
+            FakeList f = FakeList<vector_2d>();
+            f.initialize(vert, 3);
 
+            clientlogger.set_color(FAKELOGGER_VIOLET);
+            clientlogger.printl("Triangle array buffer:");
+            clientlogger.print_array(vert, 3);
             clientlogger.printl();
+
+            clientlogger.printl("Now the same using my custom resizable list:");
+            clientlogger.print_vector(f.get(0));
+            clientlogger.print_vector(f.get(1));
+            clientlogger.print_vector(f.get(2));
+            clientlogger.print("number of items: ");
+            clientlogger.printl(f.length());
+            clientlogger.print("variable internal buffer size (in items): ");
+            clientlogger.printl(f.internal_buffer_length());
+            clientlogger.printl();
+
             clientlogger.print("Event Type identifier for KeyPressed: ");
             clientlogger.printl((unsigned int)EveTypeKeyPressed);
 

@@ -29,6 +29,7 @@ typedef struct
 
 
 /**** Lists ****/
+/* using some things I coded in c */
 
 typedef struct fakelist fakelist;
 struct fakelist
@@ -38,7 +39,6 @@ struct fakelist
     size_t itemsize;
     void* items;
 };
-
 
 fakelist* fakelist_new(size_t size);
 void fakelist_free(fakelist* lst);
@@ -85,14 +85,15 @@ void fakelist_resize(fakelist* lst)
             lst->max *= 2;
             size_t newsize = lst->itemsize * lst->max;
             void* new_item_set = realloc(lst->items, newsize);
-            if (new_item_set == NULL)
+            // free(lst->items);
+            lst->items = new_item_set;
+            if (lst->items == NULL)
                 exit(EXIT_FAILURE);
             memset(  /* zerofill new space */
-                (char*)new_item_set + lst->max / 2,
+                (char*)lst->items + lst->max * lst->itemsize / 2,
                 0,
                 lst->itemsize * lst->max / 2
             );
-            lst->items = new_item_set;
         }
     }
 }
@@ -171,8 +172,89 @@ void* fakelist_get(fakelist* lst, int index)
 }
 
 
+// C++-only style stuff
+namespace FakeEngine
+{
+    template<typename StorageType>
+    class FakeList  // C++ wrapper class for my C list structure
+    {
+        public:
+        private:
+            fakelist* the_list;
+        public:
+            FakeList()
+            {
+                the_list = fakelist_new(sizeof(StorageType));
+            }
+            ~FakeList()
+            {
+                fakelist_free(the_list);
+            }
 
+            void initialize(StorageType* initializer_array, int length)
+            {
+                for (int i = 0; i < length; ++i)
+                    fakelist_append(the_list, initializer_array+i);
+            }
+            void insert_at(int index, StorageType item)
+            {
+                fakelist_insert_at(the_list, index, &item);
+            }
+            StorageType get(int index)
+            {
+                return *(StorageType*)fakelist_get(the_list, index);
+            }
+            void rm(int index)
+            {
+                fakelist_rm(the_list, index);
+            }
+            StorageType extract(int index)
+            {
+                StorageType temp = get(index);
+                rm(index);
+                return temp;
+            }
+            void append(StorageType item)
+            {
+                fakelist_append(the_list, &item);
+            }
+            void enq(StorageType item)
+            {
+                append(item);
+            }
+            StorageType deq()
+            {
+                return extract(0);
+            }
+            void push(StorageType item)
+            {
+                append(item);
+            }
+            StorageType pop()
+            {
+                return extract(-1);
+            }
 
+            int length()
+            {
+                return the_list->count;
+            }
+            int internal_buffer_length()
+            {
+                return the_list->max;
+            }
+            size_t internal_buffer_size()
+            {
+                return the_list->max * sizeof(StorageType);
+            }
+
+            // Operators
+            FakeList operator[](int index)
+            {
+                return get(index);
+            }
+    };
+}
 
 
 
