@@ -4,6 +4,7 @@
 #include <stdarg.h>
 #include <time.h>
 #include <map>
+#include <list>
 
 
 #define EVENT_C_SHIFT (16)
@@ -136,4 +137,81 @@ namespace FakeEngine
                 return m_payload;
             }
     };
+
+    class Subscription
+    {
+        public:
+            int event_signature;
+            bool (*callback_function)(int*);
+
+            // Allow sorting by event_signature for logarithmic time complexity during accesses in the subscription record
+            int operator <(Subscription other)
+            {
+                if (event_signature < other.event_signature)
+                    return 1;
+                else
+                    return 0;                
+            }
+    };
+
+    // Singleton subscription record: a structure to hold all subscriptions
+    class SubscriptionTable
+    {
+        public:
+            std::map<int, FakeList<Subscription>> records;
+        protected:
+            static SubscriptionTable* instance;
+            SubscriptionTable() {}  // protected constructor
+        public:
+            ///@brief THERE CAN BE ONLY ONE
+            ///@return Highlander
+            static SubscriptionTable* get_instance()
+            {
+                if (!instance)
+                    instance = new SubscriptionTable;
+                return instance;
+            }
+    };
+    SubscriptionTable* SubscriptionTable::instance = nullptr;
+
+    class EventBoard
+    {
+        protected:
+            static EventBoard* instance;
+            FakeList<Event> event_bus;
+            EventBoard() {}
+        public:
+            ///@brief THERE CAN BE ONLY ONE
+            ///@return Highlander
+            static EventBoard* get_instance()
+            {
+                if (!instance)
+                    instance = new EventBoard;
+                return instance;
+            }
+
+            ///@brief Emits an event to the event bus/board/buffer
+            void post(Event e)
+            {
+                event_bus.enq(e);
+            }
+            Event next_event()
+            {
+                // This saved me from segmentation errors
+                if (event_bus.length() > 0)
+                    return event_bus.get(0);
+                else
+                    return Event(EveTypeNone, 0);
+            }
+            Event dequeue()
+            {
+                if (event_bus.length() > 0)
+                    return event_bus.deq();
+                else
+                    return Event(EveTypeNone, 0);
+            }
+    };
+    EventBoard* EventBoard::instance = nullptr;
+
+
 }

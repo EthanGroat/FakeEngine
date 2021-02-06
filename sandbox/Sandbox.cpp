@@ -24,6 +24,9 @@ class SandboxApp : public FakeEngine::Application
         void run()
         {
             clientlogger.print(FAKELOGGER_GREEN, "running sandbox...\n");
+            // obtain a reference to the event board to post events
+            EventBoard* event_board = EventBoard::get_instance();
+
 
             FakeEngine::renderer::Window window("Hello, FakeLara!", 960, 540);
 
@@ -56,6 +59,11 @@ class SandboxApp : public FakeEngine::Application
                 arr[i] = hi[i];
             Event* test_event = new Event(EveTypeCustom, 1, arr);
             clientlogger.print_event(test_event);
+            // event_board->post(*test_event);
+            Event copy = event_board->next_event();
+            Event* copy_ptr = &copy;
+            clientlogger.print_event(copy_ptr);
+
 
             unsigned int buffers[] = {0, 0, 0, 0};
             glGenBuffers(4, buffers);
