@@ -42,18 +42,20 @@ class SandboxApp : public FakeEngine::Application
             clientlogger.printl();
 
             clientlogger.printl("Now the same using my custom resizable list:");
-            clientlogger.print_vector(f.get(0));
-            clientlogger.print_vector(f.get(1));
-            clientlogger.print_vector(f.get(2));
+            clientlogger.print_array(f.get_internal_array(), 3);
             clientlogger.print("number of items: ");
             clientlogger.printl(f.length());
             clientlogger.print("variable internal buffer size (in items): ");
             clientlogger.printl(f.internal_buffer_length());
             clientlogger.printl();
 
-            clientlogger.print("Event Type identifier for KeyPressed: ");
-            clientlogger.printl((unsigned int)EveTypeKeyPressed);
-
+            clientlogger.set_color(FAKELOGGER_CYAN);
+            int arr[16] = {0};
+            const char* hi = "Hi:D";
+            for (int i=0; i<4; ++i)
+                arr[i] = hi[i];
+            Event* test_event = new Event(EveTypeCustom, 1, arr);
+            clientlogger.print_event(test_event);
 
             unsigned int buffers[] = {0, 0, 0, 0};
             glGenBuffers(4, buffers);

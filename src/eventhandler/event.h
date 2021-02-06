@@ -1,6 +1,7 @@
 #pragma once
 
 #include "types.h"
+#include <stdarg.h>
 #include <time.h>
 #include <map>
 
@@ -8,7 +9,8 @@
 #define EVENT_C_SHIFT (16)
 #define EVENT_T_SHIFT (12)
 
-#define EVENT_NAME_MAX_LENGTH (32)
+#define EVENT_PAYLOAD_TYPE     int
+#define EVENT_PAYLOAD_LENGTH  (16)
 
 
 namespace FakeEngine
@@ -69,45 +71,51 @@ namespace FakeEngine
     {
         private:
             // bit string that holds the EventCategory, EventType, and Event id.
-            int event_descriptor;
-            time_t timestamp;
-            void* m_payload;
+            int m_event_signature;
+            time_t m_timestamp;
+            EVENT_PAYLOAD_TYPE m_payload[EVENT_PAYLOAD_LENGTH];
 
         public:
             ///@param type takes an EventType
             ///@param id describes the specific event in more granular detail than just EventType, such as which specific key is being pressed/released
             Event(EventType type, int id):
-                timestamp(time(NULL)),
-                m_payload(NULL)
-            {
-                event_descriptor = type | id;
-            }
+                m_event_signature(type | (id & ~EVENT_T_BITMASK)),
+                m_timestamp(time(NULL))
+            {}
             ///@param type takes an EventType
             ///@param id describes the specific event in more granular detail than just EventType, such as which specific key is being pressed/released
-            ///@param payload is a generic container for extra info which may be needed by some event listeners
-            Event(EventType type, int id, void* payload):
-                timestamp(time(NULL)),
-                m_payload(payload)
+            ///@param payload is an array of integers for extra info which may be needed by some event listeners; array should be of length 16
+            Event(EventType type, int id, EVENT_PAYLOAD_TYPE* payload):
+                m_event_signature(type | (id & ~EVENT_T_BITMASK)),
+                m_timestamp(time(NULL))
             {
-                event_descriptor = type | id;
+                for (int i = 0; i < EVENT_PAYLOAD_LENGTH; ++i)
+                    m_payload[i] = payload[i];
             }
             
             inline bool is(EventCategory category) const
-                { return event_descriptor & category == category; }
+                { return m_event_signature & category == category; }
             inline bool is(EventType type) const
-                { return event_descriptor & type == type; }
+                { return m_event_signature & type == type; }
             inline EventCategory get_event_category() const
-            {
-                return (EventCategory)(event_descriptor & EVENT_C_BITMASK);
-            }
+                { return (EventCategory)(m_event_signature & EVENT_C_BITMASK); }
             inline EventType get_event_type() const
-            {
-                return (EventType)(event_descriptor & EVENT_T_BITMASK);
-            }
+                { return (EventType)(m_event_signature & EVENT_T_BITMASK); }
             // here for debugging support
             inline const char* get_event_type_name() const
+                { return event_type_strings[get_event_type()]; }
+
+            inline int signature()
             {
-                return event_type_strings[get_event_type()];
+                return m_event_signature;
+            }
+            inline int timestamp()
+            {
+                return m_timestamp;
+            }
+            inline EVENT_PAYLOAD_TYPE* payload()
+            {
+                return m_payload;
             }
     };
 }

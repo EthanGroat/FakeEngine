@@ -60,7 +60,7 @@ fakelist* fakelist_new(size_t size)
 
 void fakelist_free(fakelist* lst)
 {
-    if (lst->count > 0)
+    if (lst->items != NULL)
         free(lst->items);
     free(lst);
 }
@@ -190,7 +190,9 @@ namespace FakeEngine
             }
             ~FakeList()
             {
-                fakelist_free(the_list);
+                if (the_list->items != NULL)
+                    free(the_list->items);
+                free(the_list);
             }
 
             // initialize the FakeList with an array

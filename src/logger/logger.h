@@ -7,7 +7,9 @@
 
 
 #include <stdio.h>
+#include <stdarg.h>
 #include "types.h"
+#include "event.h"
 
 
 /* List of ANSI color codes */
@@ -60,6 +62,9 @@ namespace FakeEngine
         inline void printl(int color, T something) const
             { print(color, something); print("\n"); }
 
+        void fprint(const char* format_string, ...) const;
+        void fprintl(const char* format_string, ...) const;
+
         inline void print_vector(vector_2d vec) const
             {
                 print("( ");
@@ -94,5 +99,13 @@ namespace FakeEngine
         void print_array(vector_2d* content, int rows) const;
         void print_array(vector_3d* content, int rows) const;
         void print_array(vector_4d* content, int rows) const;
+
+        template<typename T>
+        void print_fakelist(FakeList<T> list) const
+        {
+            print_array(list.get_internal_array(), list.length());
+        }
+
+        void print_event(Event* event) const;
     };
 }

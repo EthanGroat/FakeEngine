@@ -26,6 +26,24 @@ namespace FakeEngine
     {
     }
 
+    void Logger::fprint(const char* format_string, ...) const
+    {
+        va_list args; va_start(args, format_string);
+        char fs_buff[2048];
+        vsprintf(fs_buff, format_string, args);
+        va_end(args);
+        print(fs_buff);
+    }
+    void Logger::fprintl(const char* format_string, ...) const
+    {
+        va_list args; va_start(args, format_string);
+        char fs_buff[2048];
+        vsprintf(fs_buff, format_string, args);
+        va_end(args);
+        print(fs_buff);
+        printl();
+    }
+
     void Logger::print_array(vector_2d* content, int rows) const
     {
         for (int i = 0; i < rows; ++i)
@@ -43,5 +61,17 @@ namespace FakeEngine
         for (int i = 0; i < rows; ++i)
             print_vector(content[i]);
         printl("                               [vector_4d]");
+    }
+
+    void Logger::print_event(Event* event) const
+    {
+        fprint("%s | id: %08x", event->get_event_type_name(), event->signature());
+        print(" | payload: ");
+        for (int i=0; i<EVENT_PAYLOAD_LENGTH; ++i)
+            fprint("%c", event->payload()[i]);
+        print(" (0x");
+        for (int i=0; i<EVENT_PAYLOAD_LENGTH; ++i)
+            fprint(" %x", event->payload()[i]);
+        printl(")");
     }
 }
