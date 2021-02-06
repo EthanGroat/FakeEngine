@@ -82,9 +82,9 @@ namespace FakeEngine
                 m_event_signature(type | (id & ~EVENT_T_BITMASK)),
                 m_timestamp(time(NULL))
             {}
-            ///@param type takes an EventType
-            ///@param id describes the specific event in more granular detail than just EventType, such as which specific key is being pressed/released
-            ///@param payload is an array of integers for extra info which may be needed by some event listeners; array should be of length 16
+            ///@param type What is this event's EventType?
+            ///@param id describes the specific event in more granular detail than just EventType, such as which specific key is being pressed or released.
+            ///@param payload an array of integers for extra info which may be needed by some event listeners; array should be of length 16. Although the payload is a specific type, it can be interpreted differently by different event handling scripts.
             Event(EventType type, int id, EVENT_PAYLOAD_TYPE* payload):
                 m_event_signature(type | (id & ~EVENT_T_BITMASK)),
                 m_timestamp(time(NULL))
@@ -105,6 +105,11 @@ namespace FakeEngine
             inline const char* get_event_type_name() const
                 { return event_type_strings[get_event_type()]; }
 
+            /* 
+             * @brief This is what is used to subscribe to a particular event.
+             * @return the signature for the event, which encodes the event 
+             * category, type & id
+             */
             inline int signature()
             {
                 return m_event_signature;
@@ -113,6 +118,19 @@ namespace FakeEngine
             {
                 return m_timestamp;
             }
+            /*
+             * @brief The event's payload is a fixed length array of integers, 
+             * but despite this limitation, it can be interpreted differently 
+             * by different event handling functions. Creative uses include 
+             * interpreting parts of the data as a list of signed 64-bit 
+             * fixed-point numbers for position, scaling, rotation, forces or 
+             * impulses; a couple of game object ids for a collision event and 
+             * the vertex or point in space at which they collided, and maybe 
+             * even the momentums with which they collided, in order to compute 
+             * a post-collision velocity vector for both objects; a short 
+             * message composed of chars, etc.
+             * @return a pointer to the payload
+             */
             inline EVENT_PAYLOAD_TYPE* payload()
             {
                 return m_payload;
