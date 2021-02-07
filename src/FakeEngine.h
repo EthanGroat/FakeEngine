@@ -1,6 +1,7 @@
 #include "renderer.h"
 #include "types.h"
 #include "logger.h"
+#include "component.h"
 #include "event.h"
 
 

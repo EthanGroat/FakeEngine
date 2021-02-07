@@ -107,5 +107,6 @@ namespace FakeEngine
         }
 
         void print_event(Event* event) const;
+        void print_event(Event event) const;
     };
 }

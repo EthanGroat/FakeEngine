@@ -4,7 +4,7 @@
 #include <stdarg.h>
 #include <time.h>
 #include <map>
-#include <list>
+#include <functional>
 
 
 #define EVENT_C_SHIFT (16)
@@ -70,6 +70,8 @@ namespace FakeEngine
 
     class Event
     {
+        public:
+            bool stop_propagation;
         private:
             // bit string that holds the EventCategory, EventType, and Event id.
             int m_event_signature;
@@ -81,14 +83,16 @@ namespace FakeEngine
             ///@param id describes the specific event in more granular detail than just EventType, such as which specific key is being pressed/released
             Event(EventType type, int id):
                 m_event_signature(type | (id & ~EVENT_T_BITMASK)),
-                m_timestamp(time(NULL))
+                m_timestamp(time(NULL)),
+                stop_propagation(false)
             {}
             ///@param type What is this event's EventType?
             ///@param id describes the specific event in more granular detail than just EventType, such as which specific key is being pressed or released.
             ///@param payload an array of integers for extra info which may be needed by some event listeners; array should be of length 16. Although the payload is a specific type, it can be interpreted differently by different event handling scripts.
             Event(EventType type, int id, EVENT_PAYLOAD_TYPE* payload):
                 m_event_signature(type | (id & ~EVENT_T_BITMASK)),
-                m_timestamp(time(NULL))
+                m_timestamp(time(NULL)),
+                stop_propagation(false)
             {
                 for (int i = 0; i < EVENT_PAYLOAD_LENGTH; ++i)
                     m_payload[i] = payload[i];
@@ -106,7 +110,7 @@ namespace FakeEngine
             inline const char* get_event_type_name() const
                 { return event_type_strings[get_event_type()]; }
 
-            /* 
+            /**
              * @brief This is what is used to subscribe to a particular event.
              * @return the signature for the event, which encodes the event 
              * category, type & id
@@ -119,7 +123,7 @@ namespace FakeEngine
             {
                 return m_timestamp;
             }
-            /*
+            /**
              * @brief The event's payload is a fixed length array of integers, 
              * but despite this limitation, it can be interpreted differently 
              * by different event handling functions. Creative uses include 
@@ -136,15 +140,44 @@ namespace FakeEngine
             {
                 return m_payload;
             }
+
+            /**
+             * @brief Call the post() method of an event to post it to the 
+             * event board. This is the same as calling 
+             * EventBoard::get_instance()->post_event(this_event);
+             */
+            void post();
+    };
+
+    /**
+     * @brief Objects implementing the Subscriber interface must implement the 
+     * bool receive_event() method
+     */
+    class ISubscriber {
+        public:
+            virtual ~ISubscriber(){};
+            /**
+             * @brief receive and handle an event (which has been subscribed 
+             * to) from the event dispatcher
+             * @return whether or not to stay subscribed
+             */
+            virtual bool receive_event(Event e) = 0;
     };
 
     class Subscription
     {
         public:
             int event_signature;
-            bool (*callback_function)(int*);
+            ISubscriber* subscriber_object;
 
-            // Allow sorting by event_signature for logarithmic time complexity during accesses in the subscription record
+            Subscription(int even_sig, ISubscriber* your_object) //std::function<bool(Event)> callback
+            {
+                event_signature = even_sig;
+                subscriber_object = your_object;
+            }
+
+            /* Allow sorting by event_signature for logarithmic time complexity 
+             * of accesses of the subscription table */
             int operator <(Subscription other)
             {
                 if (event_signature < other.event_signature)
@@ -171,6 +204,39 @@ namespace FakeEngine
                     instance = new SubscriptionTable;
                 return instance;
             }
+
+            inline std::map<int, FakeList<Subscription>>::iterator find(int event_signature)
+            {
+                return records.find(event_signature);
+            }
+
+            void dispatch(Event* e)
+            {
+                int id = e->signature();
+                
+                if (find(id) != records.end())
+                {
+                    int i = 0;
+                    /* stop propagation is not really used
+                     * but might be in the future. */
+                    while (!e->stop_propagation && i < records[id].length())
+                    {
+                        Subscription* the_record = records[id].get_ptr(i);
+                        bool stay_subscribed = (the_record->subscriber_object)->receive_event(*e);
+                        if (stay_subscribed)
+                            ++i;
+                        else
+                            records[id].rm(i);
+                    }
+                }
+            }
+
+            
+            inline void subscribe(Event e, ISubscriber* your_object)  //bool (SandboxApp::*callback_function)(Event)
+            {
+                records[e.signature()].append(
+                    Subscription(e.signature(), your_object));
+            }
     };
     SubscriptionTable* SubscriptionTable::instance = nullptr;
 
@@ -179,7 +245,11 @@ namespace FakeEngine
         protected:
             static EventBoard* instance;
             FakeList<Event> event_bus;
-            EventBoard() {}
+            int iterator;
+            SubscriptionTable* sub_table;
+            EventBoard(): iterator(0) {
+                sub_table = SubscriptionTable::get_instance();
+            }
         public:
             ///@brief THERE CAN BE ONLY ONE
             ///@return Highlander
@@ -191,25 +261,35 @@ namespace FakeEngine
             }
 
             ///@brief Emits an event to the event bus/board/buffer
-            void post(Event e)
+            inline void post_event(Event e)
             {
                 event_bus.enq(e);
             }
-            Event next_event()
+            
+            inline void subscribe(Event e, ISubscriber* your_object)
             {
-                // This saved me from segmentation errors
-                if (event_bus.length() > 0)
-                    return event_bus.get(0);
-                else
-                    return Event(EveTypeNone, 0);
+                sub_table->subscribe(e, your_object);
             }
-            Event dequeue()
+
+            void handle_events();
+
+            inline Event* next_event()
+            {
+                if (event_bus.length() > 0)
+                    return event_bus.get_ptr(iterator);
+                else
+                    return nullptr;
+            }
+
+        private:
+            inline Event dequeue()
             {
                 if (event_bus.length() > 0)
                     return event_bus.deq();
                 else
                     return Event(EveTypeNone, 0);
             }
+
     };
     EventBoard* EventBoard::instance = nullptr;
 

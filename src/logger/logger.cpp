@@ -74,4 +74,10 @@ namespace FakeEngine
             fprint(" %x", event->payload()[i]);
         printl(")");
     }
+
+    void Logger::print_event(Event event) const
+    {
+        Event* tmp_event_ptr = &event;
+        print_event(tmp_event_ptr);
+    }
 }

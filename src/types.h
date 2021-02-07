@@ -209,9 +209,19 @@ namespace FakeEngine
             {
                 return *(StorageType*)fakelist_get(the_list, index);
             }
+            StorageType* get_ptr(int index)
+            {
+                return (StorageType*)fakelist_get(the_list, index);
+            }
             void rm(int index)
             {
                 fakelist_rm(the_list, index);
+            }
+            ///@brief does not resize the buffer, only clears the entries
+            void clear()
+            {
+                memset((char*)the_list->items, 0, the_list->itemsize * the_list->count); /* zerofill */
+                the_list->count = 0;
             }
             StorageType extract(int index)
             {

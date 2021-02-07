@@ -2,7 +2,7 @@
 
 using namespace FakeEngine;
 
-class SandboxApp : public FakeEngine::Application
+class SandboxApp : public FakeEngine::Application, FakeEngine::ISubscriber
 {
     // member variables
     private:
@@ -18,6 +18,16 @@ class SandboxApp : public FakeEngine::Application
         
         ~SandboxApp()  // our destructor
         {
+        }
+
+        bool receive_event(Event message_received)
+        {
+            // to demonstrate subscriber code
+            clientlogger.printl("super cool subscriber function here. Thanks for the content!");
+            clientlogger.print("Looks like it says... ");
+            clientlogger.print_event(message_received);
+
+            return true;
         }
 
         /* run() contains the main code of your FakeEngine Application */
@@ -57,12 +67,17 @@ class SandboxApp : public FakeEngine::Application
             const char* hi = "Hi:D";
             for (int i=0; i<4; ++i)
                 arr[i] = hi[i];
-            Event* test_event = new Event(EveTypeCustom, 1, arr);
-            clientlogger.print_event(test_event);
-            // event_board->post(*test_event);
-            Event copy = event_board->next_event();
-            Event* copy_ptr = &copy;
-            clientlogger.print_event(copy_ptr);
+
+            event_board->subscribe(Event(EveTypeCustom, 1, arr), this);
+
+            Event(EveTypeCustom, 1, arr).post();
+            Event* copy = event_board->next_event();
+            clientlogger.print("posted event: ");
+            clientlogger.print_event(copy);
+            clientlogger.printl();
+
+            event_board->handle_events();
+
 
 
             unsigned int buffers[] = {0, 0, 0, 0};
