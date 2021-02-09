@@ -1,32 +1,52 @@
 # FakeEngine
 
-This is my 3D game engine to be. I'm fooling around with graphics APIs in the 
-hopes of making an engine in the hopes of making some fun little things out of 
-it. I hope to make it cross-platform, but for the moment, I will be developing 
-on and testing for Linux.
+This is my 3D game engine from scratch! I'm fooling around with C++ in the
+hopes of making an engine in the hopes of making some fun games out of it. 
+I intend to make it cross-platform eventually, and portability is ingrained 
+into my decisions for this project, but for the moment, this is a Linux-first 
+project and I will only be developing on and testing for Linux until a later 
+date when I can be bothered to make sure it compiles on other OSs.
+
+Speaking of portability, assuming I didn't miss anything, all dependencies of 
+FakeEngine are included in the source code. You just need up-to-date versions 
+of CMake, Make, and a C++ compiler to make it happen. No pun intended.
 
 ## The project roadmap:
+
+* |DONE| Set up project with build system, git, license, gl loaders and all
+
+* |Done| Custom logger
+
+* |Done| Custom generic list data structures
+
+* |Done| Event message system
+
+* Handle keys (generate keypressed events every frame via a generic 
+  get_input() method which calls a get_keys_pressed() method)
 
 * Build a damn renderer
 
     * OpenGL vs Vulkan: I want it to be performant but also want to get started 
       quickly. Not sure here. Will try OpenGL first and maybe add Vulkan later.
-      This may require refactoring into an abstraction. 
+      This may require refactoring into an abstraction. Further 
+      consideration required.
 
-* Build a damn object association framework
+* Build a damn component system framework
 
-    * Objects will all have a transform attribute (or assumed transform of 0)
+    * Components will all have a transform attribute 
+      (or assumed transform of 0)
 
-    * Objects can include containers, obj models, sprites, light sources, 
-      C++ scripts, Python scripts, etc.
+    * Components can include containers, obj models, sprites, light sources, 
+      C++ scripts, Python scripts (eventually), etc.
 
-* Write a damn API for objects in the tree to interact with each other
-
-    * Kinematics can be applied to objects by use of (my own) kinematics C++ 
-      script/library which gets applied to all kinematic objects
-
-        * Parameters on the kinematic script component specify physical 
-          attributes
+        * Kinematics can be applied to things by use of a KinematicComponent 
+          C++ class which gets applied to all kinematic objects, and 
+          Parameters on the KinematicComponent specify physical attributes
+    
+    * Components will talk to each other through the event system but also have 
+      some things which bypass the generation of events (like local world 
+      transform updates of a component when its containing component's 
+      transform is updated?); must decide on the detail of this
 
 Once that's all done, then the whole damn thing might work! I actually only 
 need some rudimentary working version of these three things to begin with, and 
@@ -36,16 +56,18 @@ game engine. Sort of a one-man agile methodology.
 ## Compiling and running:
 
 The engine is compiled as a shared library that in turn depends on other 
-libraries. When compiling the sandbox environment, these libraries are 
-automatically generated and stored in a subdirectory in the binaries directory, 
+libraries. The sandbox already has FakeEngine set up as a dependency with 
+CMake, so when compiling the sandbox environment, these libraries are 
+automatically generated and stored in a subdirectory of the binaries folder, 
 so compiling the sandbox is the easiest way to get up and running.
-The preferred path for binaries is `bin` or `sandbox/bin`.
+The preferred path for binaries is `bin`.
 
-The following terminal instructions assume starting from the project directory.
+The following terminal instructions assume starting from the project 
+directory.
 
-### Quickstart (compile the sandbox (and engine) for the first time and run it):
+### Quickstart (compile the sandbox for the first time and run it):
 ```bash
-cmake -S sandbox -B bin  # or sandbox/bin
+cmake -S sandbox -B bin
 cd bin
 make
 ./Sandbox  # or just click on it from the newly generated bin folder.
@@ -67,6 +89,13 @@ cd bin
 ./Sandbox
 ```
 
-To instead compile only a specific component (like just the engine without the 
-sandbox), substitute the source to that component after the `-S` flag in the 
-instructions above, and ensure the binary path (`-B` option). Is to your liking.
+### To recompile and rerun in one command:
+```bash
+cd bin
+make && ./Sandbox
+```
+
+The Sandbox serves as an example starting point to develop an app with 
+FakeEngine. Feel free to edit its code and play around in it, but if you 
+want you may create an entirely new directory, following the sandbox 
+directory and all the files within as a template.
