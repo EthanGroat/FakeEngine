@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include "types.h"
-#include "event.h"
+#include "event/event.h"
 
 
 /* List of ANSI color codes */

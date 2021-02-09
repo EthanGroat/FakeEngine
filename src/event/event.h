@@ -4,7 +4,6 @@
 #include <stdarg.h>
 #include <time.h>
 #include <map>
-#include <functional>
 
 
 #define EVENT_C_SHIFT (16)

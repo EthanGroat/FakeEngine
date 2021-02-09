@@ -7,5 +7,4 @@ add_library(
 target_include_directories(
     logger PUBLIC
     ../
-    ../eventhandler
 )
