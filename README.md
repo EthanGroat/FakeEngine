@@ -11,6 +11,7 @@ Speaking of portability, assuming I didn't miss anything, all dependencies of
 FakeEngine are included in the source code. You just need up-to-date versions 
 of CMake, Make, and a C++ compiler to make it happen. No pun intended.
 
+
 ## The project roadmap:
 
 * |DONE| Set up project with build system, git, license, gl loaders and all
@@ -52,6 +53,7 @@ Once that's all done, then the whole damn thing might work! I actually only
 need some rudimentary working version of these three things to begin with, and 
 then I can proceed to iterate through better and better versions of a working 
 game engine. Sort of a one-man agile methodology.
+
 
 ## Compiling and running:
 
@@ -99,3 +101,28 @@ The Sandbox serves as an example starting point to develop an app with
 FakeEngine. Feel free to edit its code and play around in it, but if you 
 want you may create an entirely new directory, following the sandbox 
 directory and all the files within as a template.
+
+
+## Notes on Development Setup
+
+Here are some additional notes for getting started programming your games with 
+FakeEngine, as well as tweaking or extending the FakeEngine code yourself.
+
+## Precompiled headers:
+
+All external standard libraries the engine uses are put into a precompiled 
+header file. To ensure your IDE intellisense parses that, include the 
+ExternalLibraries.h file in your intellisense settings.
+
+In Visual Studio code, you would simply put 
+```json
+"forcedInclude": ["${workspaceFolder}/src/ExternalLibraries.h"]
+```
+into .vscode/c_cpp_properties.json under `"configurations"`.
+
+Be sure to use this precompiled header in your games via 
+`target_precompile_headers` in your CMakeLists.txt just like in the Sandbox; 
+or you may simply uncomment the `#include "ExternalLibraries.h"` at the top of 
+FakeEngine.h to have the compiler simply include the header the old fashioned 
+way when you include that file. 
+##### (I might choose to make this the default to simplify development setup).
