@@ -1,4 +1,10 @@
-// #include "ExternalLibraries.h"
+#pragma once
+
+/** 
+ * #include "ExternalLibraries.h" 
+ * must be included if client applications are not using the 
+ * precompiled ExternalLibraries header.
+ */
 #include "renderer.h"
 #include "types.h"
 #include "logger.h"
