@@ -108,7 +108,7 @@ directory and all the files within as a template.
 Here are some additional notes for getting started programming your games with 
 FakeEngine, as well as tweaking or extending the FakeEngine code yourself.
 
-## Precompiled headers:
+### Precompiled headers:
 
 All external standard libraries the engine uses are put into a precompiled 
 header file. To ensure your IDE intellisense parses that, include the 
@@ -125,4 +125,4 @@ Be sure to use this precompiled header in your games via
 or you may simply uncomment the `#include "ExternalLibraries.h"` at the top of 
 FakeEngine.h to have the compiler simply include the header the old fashioned 
 way when you include that file. 
-##### (I might choose to make this the default to simplify development setup).
+(I might choose later to make this the default to simplify development setup).
