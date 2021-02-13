@@ -1,9 +1,10 @@
 #pragma once
 
-#include <iostream>
+// #include "ExternalLibraries.h"
+#include "logger/logger.h"
 #include "glad/gl.h"
 #define GLFW_INCLUDE_NONE
-#include <GLFW/glfw3.h>
+#include "GLFW/glfw3.h"
 
 
 namespace FakeEngine
@@ -16,6 +17,7 @@ namespace FakeEngine
         {
             // member variables
             private:
+                Logger windowlogger;
                 const char* m_title;
                 int m_width, m_height;
                 GLFWwindow* m_internal_window;

@@ -5,9 +5,9 @@
    for example, run: $ ./myfakeapp > log.txt
 */
 
+#pragma once
 
-#include <stdio.h>
-#include <stdarg.h>
+// #include "ExternalLibraries.h"
 #include "types.h"
 #include "event/event.h"
 

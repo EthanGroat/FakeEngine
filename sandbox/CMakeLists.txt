@@ -7,6 +7,8 @@ add_subdirectory(../src ${CMAKE_BINARY_DIR}/engine_libraries)
 
 add_executable(${PROJECT_NAME} Sandbox.cpp)
 
+target_precompile_headers(${PROJECT_NAME} REUSE_FROM FakeEngine)
+
 target_include_directories(
     ${PROJECT_NAME} PUBLIC
     ../src

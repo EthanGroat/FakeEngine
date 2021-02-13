@@ -16,7 +16,8 @@ namespace FakeEngine
             glViewport(0, 0, width, height);
         }
 
-        Window::Window(const char* title, int width, int height)
+        Window::Window(const char* title, int width, int height):
+            windowlogger(FAKELOGGER_RED)
         {
             m_title = title;
             m_width = width;
@@ -34,21 +35,21 @@ namespace FakeEngine
         {
             if (!glfwInit())
             {
-                std::cerr << "Failed to initialize GLFW" << std::endl;
+                windowlogger.printl("Failed to initialize GLFW");
                 return false;
             }
             
             m_internal_window = glfwCreateWindow(m_width, m_height, m_title, NULL, NULL);
             if (!m_internal_window)
             {
-                std::cerr << "Failed to create GLFW window." << std::endl;
+                windowlogger.printl("Failed to create GLFW window.");
                 return false;
             }
             glfwMakeContextCurrent(m_internal_window);
 
             if (!gladLoadGL(glfwGetProcAddress))
             {
-                std::cerr << "Failed to initialize glad" << std::endl;
+                windowlogger.printl("Failed to initialize glad");
                 return false;
             }
 

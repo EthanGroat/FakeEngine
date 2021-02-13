@@ -3,9 +3,13 @@ add_library(
     renderer.h
     renderer.cpp
 )
-target_include_directories(renderer PUBLIC
+
+target_precompile_headers(renderer PRIVATE ../ExternalLibraries.h)
+
+target_include_directories(
+    renderer PUBLIC
     ${PROJECT_SOURCE_DIR}/glad/include
-    ${PROJECT_SOURCE_DIR}/eventhandler
+    ../
 )
 
 target_link_libraries(renderer glfw glad event)

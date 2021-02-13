@@ -4,6 +4,8 @@ add_library(
     component.cpp
 )
 
+target_precompile_headers(component PRIVATE ../ExternalLibraries.h)
+
 target_include_directories(
     component PUBLIC
     ../

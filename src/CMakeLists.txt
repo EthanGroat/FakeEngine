@@ -12,6 +12,8 @@ add_subdirectory(component)
 
 add_library(${PROJECT_NAME} SHARED FakeEngine.cpp)
 
+target_precompile_headers(${PROJECT_NAME} PRIVATE ExternalLibraries.h)
+
 target_include_directories(
     ${PROJECT_NAME} PUBLIC
     renderer

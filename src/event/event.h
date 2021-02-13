@@ -1,9 +1,7 @@
 #pragma once
 
+// #include "ExternalLibraries.h"
 #include "types.h"
-#include <stdarg.h>
-#include <time.h>
-#include <map>
 
 
 #define EVENT_C_SHIFT (16)
