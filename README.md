@@ -126,3 +126,18 @@ or you may simply uncomment the `#include "ExternalLibraries.h"` at the top of
 FakeEngine.h to have the compiler simply include the header the old fashioned 
 way when you include that file. 
 (I might choose later to make this the default to simplify development setup).
+
+### Memory leaks:
+
+I use valgrind to check for memory mismanagement. Just run
+`valgrind --leak-check=full ./Sandbox` from bin and you're good to go.
+
+Of note: valgrind detects memory leaks in the libX11 code itself:
+```
+==18749== 408 bytes in 1 blocks are definitely lost in loss record 2,180 of 2,213
+==18749==    at 0x4840B65: calloc (vg_replace_malloc.c:760)
+==18749==    by 0x58EE52C: _XimOpenIM (in /usr/lib/libX11.so.6.4.0)
+```
+This might be an error in the X11 libraries, or it may be intended behavior, 
+but either way not an issue with my code. So no leaks so far, yay!
+
