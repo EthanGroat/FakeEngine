@@ -32,22 +32,34 @@ of CMake, Make, and a C++ compiler to make it happen. No pun intended.
       This may require refactoring into an abstraction. Further 
       consideration required.
 
-* Build a damn component system framework
+* Build a damn Entity Component System framework
 
-    * Components will all have a transform attribute 
-      (or assumed transform of 0)
+    * The WorldTree is composed of Worlds, which are composed of a tree of 
+      GameObjects, which are composed of Components.
+      Worlds are individual scenes or levels.
 
-    * Components can include containers, obj models, sprites, light sources, 
-      C++ scripts, Python scripts (eventually), etc.
+    * GameObjects will all have local transform Components and world tansform 
+      components (or assume these to be 0) and a set of default methods which 
+      can be overridden by GameObject subclasses. With code referenced therein, 
+      Components can talk to each other through the event system, but they 
+      will also have the option to bypass the generation of events when they 
+      can take advantage of the default methods which are on all objects.
+      The GameObjectManager will have the role of 
+      calling the default methods of objects, and will have special functions
+      for handling universally-defined behavior (like for world transform 
+      updates of a GameObject when its parent GameObject's transform is 
+      updated).
+
+    * Components can include obj models, sprites, light sources, materials, 
+      other physical attributes, Python scripts (eventually), etc.
 
         * Kinematics can be applied to things by use of a KinematicComponent 
-          C++ class which gets applied to all kinematic objects, and 
-          Parameters on the KinematicComponent specify physical attributes
-    
-    * Components will talk to each other through the event system but also have 
-      some things which bypass the generation of events (like local world 
-      transform updates of a component when its containing component's 
-      transform is updated?); must decide on the detail of this
+          class, and Parameters on the KinematicComponent specify relavent 
+          physical attributes and processing modes.
+        
+        * Materials will load a .mat file on runtime through some asset 
+          management system (so to avoid repeated IO on the same file); other 
+          components will similarly need to use the asset management system.
 
 Once that's all done, then the whole damn thing might work! I actually only 
 need some rudimentary working version of these three things to begin with, and 
