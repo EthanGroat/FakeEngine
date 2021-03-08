@@ -7,6 +7,9 @@
 #include "GLFW/glfw3.h"
 
 
+#define FRAMETIME_T int  // type to count milliseconds of frametime
+
+
 namespace FakeEngine
 {
     namespace renderer

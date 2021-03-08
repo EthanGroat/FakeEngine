@@ -5,20 +5,20 @@
 
 namespace FakeEngine
 {
-    class Component
+    class GameObject
     {
         private:
             /* data */
         public:
-            Component(/* args */);
-            ~Component();
+            GameObject(/* args */);
+            ~GameObject();
     };
 
-    Component::Component(/* args */)
+    GameObject::GameObject(/* args */)
     {
     }
 
-    Component::~Component()
+    GameObject::~GameObject()
     {
     }
 }

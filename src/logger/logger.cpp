@@ -29,7 +29,7 @@ namespace FakeEngine
     void Logger::fprint(const char* format_string, ...) const
     {
         va_list args; va_start(args, format_string);
-        char fs_buff[2048];
+        char fs_buff[FAKELOGGER_INTERNAL_FORMATSTRING_BUFFER_SIZE];
         vsprintf(fs_buff, format_string, args);
         va_end(args);
         print(fs_buff);
@@ -37,7 +37,7 @@ namespace FakeEngine
     void Logger::fprintl(const char* format_string, ...) const
     {
         va_list args; va_start(args, format_string);
-        char fs_buff[2048];
+        char fs_buff[FAKELOGGER_INTERNAL_FORMATSTRING_BUFFER_SIZE];
         vsprintf(fs_buff, format_string, args);
         va_end(args);
         print(fs_buff);

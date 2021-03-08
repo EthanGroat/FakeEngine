@@ -44,11 +44,11 @@ of CMake, Make, and a C++ compiler to make it happen. No pun intended.
       Components can talk to each other through the event system, but they 
       will also have the option to bypass the generation of events when they 
       can take advantage of the default methods which are on all objects.
-      The GameObjectManager will have the role of 
+      The WorldManager will have the role of 
       calling the default methods of objects, and will have special functions
       for handling universally-defined behavior (like for world transform 
       updates of a GameObject when its parent GameObject's transform is 
-      updated).
+      updated). 
 
     * Components can include obj models, sprites, light sources, materials, 
       other physical attributes, Python scripts (eventually), etc.

@@ -21,6 +21,8 @@
 #define FAKELOGGER_VIOLET (95)
 #define FAKELOGGER_CYAN (96)
 
+#define FAKELOGGER_INTERNAL_FORMATSTRING_BUFFER_SIZE (2048)
+
 
 namespace FakeEngine
 {

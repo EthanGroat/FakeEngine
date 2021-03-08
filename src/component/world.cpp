@@ -1,4 +1,4 @@
-#include "component.h"
+#include "world.h"
 
 
 using namespace FakeEngine;
