@@ -38,7 +38,7 @@ class SandboxApp : public FakeEngine::Application, FakeEngine::ISubscriber
             EventBoard* event_board = EventBoard::get_instance();
 
 
-            FakeEngine::renderer::Window window("Hello, FakeLara!", 960, 540);
+            FakeEngine::renderer::Window window("Hello, FakeEngine!", 960, 540);
 
             vector_2d vert[3] = {
                 {-0.8f, 0.0f},
