@@ -163,6 +163,7 @@ void* fakelist_insert_at(fakelist* lst, int index, void* item)
 }
 void* fakelist_get(fakelist* lst, int index)
 {
+    // will this assignment of index mutate the original?
     if (index < 0)
         index = lst->count + index;
     if (lst->count <= 0 || index > lst->count - 1)

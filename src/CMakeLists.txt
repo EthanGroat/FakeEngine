@@ -8,7 +8,7 @@ add_subdirectory(glad)
 add_subdirectory(renderer)
 add_subdirectory(logger)
 add_subdirectory(event)
-add_subdirectory(component)
+add_subdirectory(entt)
 
 add_library(${PROJECT_NAME} SHARED FakeEngine.cpp)
 
@@ -19,7 +19,7 @@ target_include_directories(
     renderer
     logger
     event
-    component
+    entt/single_include
 )
 
 target_link_libraries(
@@ -28,5 +28,5 @@ target_link_libraries(
     renderer
     logger
     event
-    component
+    EnTT::EnTT
 )
