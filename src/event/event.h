@@ -1,6 +1,5 @@
 #pragma once
 
-// #include "ExternalLibraries.h"
 #include "types.h"
 
 
@@ -205,7 +204,7 @@ namespace FakeEngine
             }
     };
 
-    // Singleton subscription record: a structure to hold all subscriptions
+    ///@brief Singleton subscription record: a structure to hold all subscriptions
     class SubscriptionTable
     {
         public:
@@ -215,7 +214,7 @@ namespace FakeEngine
             SubscriptionTable() {}  // protected constructor
         public:
             ///@brief THERE CAN BE ONLY ONE
-            ///@return Highlander
+            ///@return The Highlander
             static SubscriptionTable* get_instance()
             {
                 if (!instance)
@@ -267,10 +266,10 @@ namespace FakeEngine
             SubscriptionTable* sub_table;
             EventBoard(): iterator(0) {
                 sub_table = SubscriptionTable::get_instance();
-            }
+            }  // constructor
         public:
             ///@brief THERE CAN BE ONLY ONE
-            ///@return Highlander
+            ///@return The Highlander
             static EventBoard* get_instance()
             {
                 if (!instance)

@@ -9,6 +9,7 @@ add_subdirectory(renderer)
 add_subdirectory(logger)
 add_subdirectory(event)
 add_subdirectory(entt)
+add_subdirectory(universe)
 
 add_library(${PROJECT_NAME} SHARED FakeEngine.cpp)
 
@@ -20,6 +21,7 @@ target_include_directories(
     logger
     event
     entt/single_include
+    universe
 )
 
 target_link_libraries(
@@ -29,4 +31,5 @@ target_link_libraries(
     logger
     event
     EnTT::EnTT
+    universe
 )
