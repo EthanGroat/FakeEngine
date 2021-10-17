@@ -77,5 +77,14 @@ namespace FakeEngine
             // return m_closed;
             return glfwWindowShouldClose(m_internal_window) == 1;
         }
+
+
+        Core::Core(/* args */)
+        {
+        }
+        
+        Core::~Core()
+        {
+        }
     }
 }
