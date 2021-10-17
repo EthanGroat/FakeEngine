@@ -38,5 +38,16 @@ namespace FakeEngine
             private:
                 bool init();
         };
+
+        class Core
+        {
+        private:
+            /* data */
+        public:
+            Core(/* args */);
+            ~Core();
+            void render_sprite();  // Todo
+            void render_vector();  // Todo
+        };
     }
 }
