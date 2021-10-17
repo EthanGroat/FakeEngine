@@ -9,4 +9,5 @@ target_precompile_headers(universe PRIVATE ../ExternalLibraries.h)
 target_include_directories(
     universe PUBLIC
     ../
+    ../entt/single_include
 )
