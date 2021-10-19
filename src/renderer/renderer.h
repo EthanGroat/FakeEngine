@@ -46,6 +46,12 @@ namespace FakeEngine
         public:
             Core(/* args */);
             ~Core();
+            /**
+             * These functions are to be called according to the
+             * RenderMeAttrib's pointer to the appropriate render function.
+             * The presence of this RenderMeAttrib also determines whether the
+             * Substance gets rendered.
+             */
             void render_sprite();  // Todo
             void render_vector();  // Todo
         };
