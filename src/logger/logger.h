@@ -28,6 +28,7 @@ namespace FakeEngine
     {
       private:
         int default_color = FAKELOGGER_NORMAL;
+        FakeList<char> input_queue;  // Todo for user input
       public:
         Logger();
 
